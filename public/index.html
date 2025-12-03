@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syed TTS - Hindi / Hinglish / English</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1e293b, #020617);
+      color: #e5e7eb;
+      padding: 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 720px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      padding: 20px 20px 24px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+    .title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .subtitle {
+      font-size: 0.78rem;
+      opacity: 0.7;
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(52, 211, 153, 0.6);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.1);
+      white-space: nowrap;
+    }
+    .textarea-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      max-height: 260px;
+      resize: vertical;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 10px 11px;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      outline: none;
+      transition: border 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+    textarea:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
+      background: rgba(15, 23, 42, 0.95);
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin: 14px 0 10px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    label {
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+    select {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 6px 10px;
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      outline: none;
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, #38bdf8 50%),
+        linear-gradient(135deg, #38bdf8 50%, transparent 50%);
+      background-position: calc(100% - 14px) calc(1.1em), calc(100% - 9px) calc(1.1em);
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+    }
+    select:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
+    }
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    input[type="range"] {
+      flex: 1;
+      accent-color: #38bdf8;
+    }
+    .range-value {
+      font-size: 0.78rem;
+      opacity: 0.85;
+      min-width: 38px;
+      text-align: right;
+    }
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      padding: 7px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+      white-space: nowrap;
+    }
+    .primary {
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #0f172a;
+      font-weight: 600;
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.5);
+    }
+    .primary:hover {
+      transform: translateY(-0.5px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.65);
+    }
+    .secondary {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+    .secondary:hover {
+      background: rgba(30, 41, 59, 0.95);
+    }
+    .status {
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+    .status span {
+      font-weight: 600;
+    }
+    .status-ok {
+      color: #22c55e;
+    }
+    .status-error {
+      color: #f97316;
+    }
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      filter: drop-shadow(0 14px 30px rgba(15, 23, 42, 0.9));
+    }
+    .hint {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      opacity: 0.75;
+    }
+    .tagline {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      opacity: 0.85;
+    }
+    .tagline strong {
+      color: #38bdf8;
+    }
+    @media (max-width: 640px) {
+      .card {
+        padding: 14px 13px 18px;
+      }
+      .controls {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .badge {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div>
+        <div class="title">🎙️ Syed's TTS Studio</div>
+        <div class="subtitle">Hindi • Hinglish • English · Edge-TTS powered</div>
+      </div>
+      <div class="badge">100% Free · Vercel Ready</div>
+    </div>
+
+    <div class="textarea-label">
+      <span>Text to speak</span>
+      <span id="charCount">0 / 600</span>
+    </div>
+    <textarea id="text" placeholder="Type your script here... e.g. 'Aaj ka din bahut awesome hai! Chalo ek zabardast TTS website banate hain.'"></textarea>
+
+    <div class="controls">
+      <div class="field">
+        <label for="voice">Voice preset</label>
+        <select id="voice">
+          <option value="hi_female">Hindi - Swara (Female)</option>
+          <option value="hi_male">Hindi - Madhur (Male)</option>
+          <option value="en_in_female">Hinglish - Neerja (Female)</option>
+          <option value="en_in_male">Hinglish - Prabhat (Male)</option>
+          <option value="en_us_female">English US - Aria (Female)</option>
+          <option value="en_us_male">English US - Guy (Male)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Speed & Pitch</label>
+        <div class="range-row">
+          <input id="rate" type="range" min="-40" max="40" value="0" />
+          <span class="range-value" id="rateVal">0%</span>
+        </div>
+        <div class="range-row">
+          <input id="pitch" type="range" min="-40" max="40" value="0" />
+          <span class="range-value" id="pitchVal">0Hz</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-row">
+      <div class="buttons">
+        <button class="primary" id="generateBtn">
+          <span id="generateLabel">🎵 Generate Speech</span>
+        </button>
+        <button class="secondary" id="sampleBtn">Try sample line</button>
+      </div>
+      <div class="status" id="statusText">Status: <span class="status-ok">Ready</span></div>
+    </div>
+
+    <audio id="audio" controls style="display:none"></audio>
+
+    <div class="hint">
+      💡 Tip: For Hinglish YouTube scripts, use Neerja or Prabhat. Keep sentences short and natural for best clarity.
+    </div>
+    <div class="tagline">
+      Built for <strong>Vercel deployment</strong> · Python Edge-TTS backend · Minimal, fast and clean UI.
+    </div>
+  </div>
+
+  <script>
+    const textArea = document.getElementById('text');
+    const charCount = document.getElementById('charCount');
+    const rate = document.getElementById('rate');
+    const pitch = document.getElementById('pitch');
+    const rateVal = document.getElementById('rateVal');
+    const pitchVal = document.getElementById('pitchVal');
+    const generateBtn = document.getElementById('generateBtn');
+    const generateLabel = document.getElementById('generateLabel');
+    const sampleBtn = document.getElementById('sampleBtn');
+    const statusText = document.getElementById('statusText');
+    const audio = document.getElementById('audio');
+
+    const MAX_CHARS = 600;
+
+    textArea.addEventListener('input', () => {
+      if (textArea.value.length > MAX_CHARS) {
+        textArea.value = textArea.value.slice(0, MAX_CHARS);
+      }
+      charCount.textContent = `${textArea.value.length} / ${MAX_CHARS}`;
+    });
+
+    rate.addEventListener('input', () => {
+      rateVal.textContent = `${rate.value}%`;
+    });
+
+    pitch.addEventListener('input', () => {
+      pitchVal.textContent = `${pitch.value}Hz`;
+    });
+
+    sampleBtn.addEventListener('click', () => {
+      textArea.value = "Namaste! Ye Syed ka TTS Studio hai. Yahan tum Hindi, Hinglish aur English me natural voice generate kar sakte ho.";
+      charCount.textContent = `${textArea.value.length} / ${MAX_CHARS}`;
+    });
+
+    async function generateSpeech() {
+      const text = textArea.value.trim();
+      const voice = document.getElementById('voice').value;
+
+      if (!text) {
+        statusText.innerHTML = 'Status: <span class="status-error">Please enter some text</span>';
+        return;
+      }
+
+      try {
+        generateBtn.disabled = true;
+        generateLabel.textContent = '⏳ Generating...';
+        statusText.innerHTML = 'Status: <span class="status-ok">Talking to TTS engine...</span>';
+
+        const payload = {
+          text,
+          voice,
+          rate: parseInt(rate.value, 10),
+          pitch: parseInt(pitch.value, 10),
+        };
+
+        const res = await fetch('/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(errText || 'Request failed');
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        audio.src = url;
+        audio.style.display = 'block';
+        audio.play();
+
+        statusText.innerHTML = 'Status: <span class="status-ok">Audio ready ✅</span>';
+      } catch (err) {
+        statusText.innerHTML = 'Status: <span class="status-error">Error: ' + (err.message || 'Something went wrong') + '</span>';
+      } finally {
+        generateBtn.disabled = false;
+        generateLabel.textContent = '🎵 Generate Speech';
+      }
+    }
+
+    generateBtn.addEventListener('click', generateSpeech);
+  </script>
+</body>
+</html>
